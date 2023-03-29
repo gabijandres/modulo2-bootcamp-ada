@@ -1,0 +1,128 @@
+<!-- Implementar um formulário com pelo menos 5 inputs de tipos diferentes
+
+Cada input deve ser validado através do Javascript, após o clique no botão de submissão do formulário -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercicio 1</title>
+    <script>
+        function resetError() {
+          document.querySelectorAll(".error").forEach((el) => {
+            el.style.display = "none";
+          });
+        }
+
+        function emailInvalido(email) {
+          const formato = new RegExp("[A-Za-z0-9_]@[A-Za-z]\.[A-Za-z]{2,3}");
+          if (formato.test(email)) return false;
+          return true;
+        }
+
+        function pegarDados() {
+          event.preventDefault();
+          resetError();
+          const usuario = document.querySelector("#usuario").value;
+          const name = document.querySelector("#name").value;
+          const password = document.querySelector("#password").value;
+          const email = document.querySelector("#email").value;
+          const checkbox = document.querySelector("#checkbox").checked;
+          const passwordConfirm = document.querySelector("#passwordConfirm").value;
+
+          let error = false;
+
+          console.log(usuario, name, password, email, checkbox, passwordConfirm);
+
+          if (usuario === "") {
+            document.querySelector("#errorUsuario").style.display = "inline";
+            error = true;
+          }
+          if (name === "") {
+            document.querySelector("#errorName").style.display = "inline";
+            error = true;
+          }
+          if (password === "") {
+            document.querySelector("#errorPassword").style.display = "inline";
+            error = true;
+          }
+          if (email === "") {
+            document.querySelector("#errorEmail").style.display = "inline";
+            error = true;
+          }
+          if (emailInvalido(email)) {
+            console.log("erro formato");
+            document.querySelector("#errorFormatEmail").style.display = "inline";
+            error = true;
+          }
+          if (passwordConfirm === "") {
+            document.querySelector("#errorPasswordConfirm").style.display = "inline";
+            error = true;
+          }
+          if (passwordConfirm !== password) {
+            document.querySelector("#errorPasswordMatch").style.display = "inline";
+            error = true;
+          }
+
+          if (!checkbox) {
+              alert("Tem certeza que não gostaria de receber confirmação de cadastro por e-mail?");
+          }
+
+          if(!error) location.href = "sucesso.html";
+        }
+
+        window.onload = () => {
+          resetError();
+        };
+      </script>
+
+      <style>
+        .error {
+          color: red;
+          font-size: 10px;
+        }
+      </style>
+  </head>
+  <body>
+    <header>
+      <h1>Olá, visitante! Vamos criar um cadastro?</h1>
+    </header>
+    <main>
+      <form onsubmit="pegarDados()">
+        <input id="name" type="text" placeholder="Nome" />
+        <span id="errorName" class="error"> Campo obrigatório. </span>
+        <br />
+        <br />
+
+        <input id="email" type="email" placeholder="Email" />
+        <span id="errorEmail" class="error"> Campo obrigatório. </span>
+        <span id="errorFormatEmail" class="error"> Erro no formato do e-mail digitado. </span>
+        <br />
+        <br />
+
+        <input id="usuario" type="text" placeholder="Usuario" />
+        <span id="errorUsuario" class="error"> Campo obrigatório. </span>
+        <br />
+        <br />
+
+        <input id="password" type="password" placeholder="Senha" />
+        <span id="errorPassword" class="error"> Campo obrigatório. </span>
+        <br />
+        <br />
+
+        <input id="passwordConfirm" type="password" placeholder="Confirmação de Senha" />
+        <span id="errorPasswordConfirm" class="error"> Campo obrigatório. </span>
+        <span id="errorPasswordMatch" class="error"> Senha e confirmação não coincidem. </span>
+        <br />
+        <br />
+
+        <input id="checkbox" type="checkbox" /> Quero receber confirmação de cadastro por e-mail
+        <br />
+        <br />
+
+        <input type="submit" value="Entrar" />
+      </form>
+    </main>
+  </body>
+</html>
