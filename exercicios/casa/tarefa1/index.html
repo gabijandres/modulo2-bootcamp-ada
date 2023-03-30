@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My favorite HP Characters</title>
+    <script src="index.js"></script>
+    <link href="style.css" type="text/css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/harry-potter.png">
+</head>
+<body>
+    <button type="submit" onclick="generateRandomCharacter()"> Generate random character </button>
+    <button type="submit" onclick="addCharacterToList()"> Add to favorites list </button>
+
+    <div id="random-character"></div>
+    <div id="loader" class="hidden"></div>
+
+    <div>
+        My favorite Harry Potter characters list
+        <ul id="favorites-characters">
+
+        </ul>
+        
+        <div id="empty-list">
+            <p> Your list is empty. Would you like to add some characters? </p>
+        </div>
+    </div>
+</body>
+</html>
