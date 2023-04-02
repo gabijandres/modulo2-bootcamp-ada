@@ -4,27 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My favorite HP Characters</title>
+    <title>My favorites HP Characters</title>
     <script src="index.js"></script>
     <link href="style.css" type="text/css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="assets/harry-potter.png">
 </head>
 <body>
-    <button type="submit" onclick="generateRandomCharacter()"> Generate random character </button>
-    <button type="submit" onclick="addCharacterToList()"> Add to favorites list </button>
 
-    <div id="random-character"></div>
-    <div id="loader" class="hidden"></div>
+    <section class="hero">
+        <h1> Explore the Harry Potter world and <span> save </span> your favorites <span> characters </span> on your own list. </h1>
+        <div id="generate-button">
+            <button type="submit" onclick="generateRandomCharacter()" class="button"> Generate character </button>
+        </div>
+    </section>
 
-    <div>
-        My favorite Harry Potter characters list
-        <ul id="favorites-characters">
+    <section class="random">
+        <h1>The generated character was...</h1>
+        <div id="random-character" class="hidden"></div>
+        <div id="loader" class="hidden"></div>
+        <div id="empty-random">
+            <p> No characters have been generated yet. If you want to generate some character, click on the button above.  </p>
+        </div>
+    </section>
 
-        </ul>
+    <section class="favorites">
+        <h1>My favorite Harry Potter characters list</h1>
+        <ul id="favorites-characters"></ul>
         
         <div id="empty-list">
             <p> Your list is empty. Would you like to add some characters? </p>
         </div>
-    </div>
+    </section>
 </body>
 </html>
