@@ -46,7 +46,7 @@ const hideActionButtons = (id) => {
   const li = document.getElementById(id);
   li.onmouseover = () => hideElement(id + "-buttons");
   hideElement(id + "-buttons");
-}
+};
 
 const openUpdateForm = (character) => {
   hideActionButtons(character.id);
@@ -80,7 +80,12 @@ const openUpdateForm = (character) => {
 const addButtonLoading = (id) => {
   const button = document.getElementById(id);
   button.classList.add("loading");
-}
+};
+
+const removeButtonLoading = (id) => {
+  const generateButton = document.getElementById(id);
+  generateButton.classList.remove("loading");
+};
 
 const generateRandomCharacter = async () => {
   cleanElement("random-character");
@@ -108,11 +113,6 @@ const getGeneratedCharacter = () => {
   return JSON.parse(localStorage.getItem("character"));
 };
 
-const removeButtonLoading = (id) => {
-  const generateButton = document.getElementById(id);
-  generateButton.classList.remove("loading");
-}
-
 const createCharacterElement = (character) => {
   saveGeneratedCharacter(character);
   hideElement("loader");
@@ -121,11 +121,6 @@ const createCharacterElement = (character) => {
   createHeadingElement(character, "random-character");
   createImageElement(character, "random-character");
   createButtonElement(character, "add", "random-character");
-};
-
-const cleanElement = (id) => {
-  const element = document.getElementById(id);
-  element.innerHTML = "";
 };
 
 const createHeadingElement = (character, id = character.id) => {
@@ -176,6 +171,14 @@ const createButtonElement = (character, action, id = character.id) => {
   el.appendChild(button);
 };
 
+const createSpanElement = (character, id = character.id) => {
+  const span = document.createElement("span");
+  span.textContent = character.name;
+
+  const el = document.getElementById(id);
+  el.appendChild(span);
+};
+
 const showElement = (id) => {
   const element = document.getElementById(id);
   element.classList.remove("hidden");
@@ -188,12 +191,9 @@ const hideElement = (id) => {
   element.classList.add("hidden");
 };
 
-const createSpanElement = (character, id = character.id) => {
-  const span = document.createElement("span");
-  span.textContent = character.name;
-
-  const el = document.getElementById(id);
-  el.appendChild(span);
+const cleanElement = (id) => {
+  const element = document.getElementById(id);
+  element.innerHTML = "";
 };
 
 const addCharacterToList = async () => {
