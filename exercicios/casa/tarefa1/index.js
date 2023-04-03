@@ -1,5 +1,5 @@
 const baseUrl = "https://hp-api.onrender.com/api";
-const baseDBUrl = "https://crudcrud.com/api/a429a2a9f7d440e69dad53de1ed976f8";
+const baseDBUrl = "https://crudcrud.com/api/49449c2adb7a4a1e97950885e8a28e0c";
 
 const createCharacter = async (character) => {
   await fetch(`${baseDBUrl}/characters`, {
