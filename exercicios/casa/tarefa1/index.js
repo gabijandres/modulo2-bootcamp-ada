@@ -120,8 +120,7 @@ const createCharacterElement = (character) => {
   showElement("random-character");
   createHeadingElement(character, "random-character");
   createImageElement(character, "random-character");
-  const button = createButtonElement(character, "add");
-  document.getElementById("random-character").appendChild(button);
+  createButtonElement(character, "add", "random-character");
 };
 
 const cleanElement = (id) => {
@@ -147,7 +146,7 @@ const createImageElement = (character, id = character.id) => {
   el.appendChild(img);
 };
 
-const createButtonElement = (character, action) => {
+const createButtonElement = (character, action, id = character.id) => {
   const button = document.createElement("button");
   button.type = "submit";
   button.classList.add("button");
@@ -173,7 +172,8 @@ const createButtonElement = (character, action) => {
     };
     button.textContent = "Add to favorites list";
   }
-  return button;
+  const el = document.getElementById(id);
+  el.appendChild(button);
 };
 
 const showElement = (id) => {
@@ -216,19 +216,15 @@ const createFavoritesList = async () => {
     li.onmouseover = () => showElement(character.id + "-buttons");
     li.onmouseleave = () => hideElement(character.id + "-buttons");
 
-    const del = createButtonElement(character, "delete");
-    const update = createButtonElement(character, "update");
-
     const div = document.createElement("div");
     div.classList.add("buttons");
     div.classList.add("hidden");
     div.id = character.id + "-buttons";
-    div.appendChild(del);
-    div.appendChild(update);
     li.appendChild(div);
-
     ul.appendChild(li);
 
+    createButtonElement(character, "delete", character.id + "-buttons");
+    createButtonElement(character, "update", character.id + "-buttons");
     createSpanElement(character);
     createImageElement(character);
 
