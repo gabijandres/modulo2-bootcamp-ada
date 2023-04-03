@@ -1,5 +1,5 @@
 const baseUrl = "https://hp-api.onrender.com/api";
-const baseDBUrl = "https://crudcrud.com/api/b3c8aa4af37a4807bca2f756518ef59e";
+const baseDBUrl = "https://crudcrud.com/api/a429a2a9f7d440e69dad53de1ed976f8";
 
 const createCharacter = async (character) => {
   await fetch(`${baseDBUrl}/characters`, {
@@ -11,12 +11,12 @@ const createCharacter = async (character) => {
   });
 };
 
-const getAll = async () => {
+const getAllCharacters = async () => {
   const response = await fetch(`${baseDBUrl}/characters`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-    }
+    },
   });
 
   return await response.json();
@@ -27,13 +27,12 @@ const deleteCharacter = async (id) => {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-    }
+    },
   });
 };
 
 const updateCharacter = async (id, character) => {
-  delete character["_id"];
-  console.log(JSON.stringify(character));
+  delete character["_id"]; // remove the _id from the request body
   await fetch(`${baseDBUrl}/characters/${id}`, {
     method: "PUT",
     headers: {
@@ -43,9 +42,16 @@ const updateCharacter = async (id, character) => {
   });
 };
 
-const openUpdateForm = (character) => {
-  const form = document.createElement("form");
+const hideActionButtons = (id) => {
+  const li = document.getElementById(id);
+  li.onmouseover = () => hideElement(id + "-buttons");
+  hideElement(id + "-buttons");
+}
 
+const openUpdateForm = (character) => {
+  hideActionButtons(character.id);
+
+  const form = document.createElement("form");
   const input = document.createElement("input");
   input.type = "text";
   input.placeholder = "Insert a new image URL";
@@ -54,7 +60,7 @@ const openUpdateForm = (character) => {
 
   const button = document.createElement("button");
   button.type = "submit";
-  button.textContent = "Update image";
+  button.textContent = "Update";
   button.classList.add("button-update");
   button.onclick = async () => {
     event.preventDefault();
@@ -69,12 +75,18 @@ const openUpdateForm = (character) => {
 
   const div = document.getElementById(character.id);
   div.append(form);
+};
+
+const addButtonLoading = (id) => {
+  const button = document.getElementById(id);
+  button.classList.add("loading");
 }
 
 const generateRandomCharacter = async () => {
   cleanElement("random-character");
   showElement("loader");
   hideElement("empty-random");
+  addButtonLoading("generate-button");
 
   const response = await fetch(`${baseUrl}/characters`, {
     method: "GET",
@@ -96,9 +108,15 @@ const getGeneratedCharacter = () => {
   return JSON.parse(localStorage.getItem("character"));
 };
 
+const removeButtonLoading = (id) => {
+  const generateButton = document.getElementById(id);
+  generateButton.classList.remove("loading");
+}
+
 const createCharacterElement = (character) => {
   saveGeneratedCharacter(character);
   hideElement("loader");
+  removeButtonLoading("generate-button");
   showElement("random-character");
   createHeadingElement(character, "random-character");
   createImageElement(character, "random-character");
@@ -129,6 +147,35 @@ const createImageElement = (character, id = character.id) => {
   el.appendChild(img);
 };
 
+const createButtonElement = (character, action) => {
+  const button = document.createElement("button");
+  button.type = "submit";
+  button.classList.add("button");
+  const img = document.createElement("img");
+
+  if (action === "delete") {
+    button.onclick = async () => {
+      await deleteCharacter(character._id);
+      createFavoritesList();
+    };
+    img.src = "assets/delete.png";
+    img.alt = "Delete character";
+    button.appendChild(img);
+  } else if (action === "update") {
+    button.onclick = () => openUpdateForm(character);
+    img.src = "assets/edit.png";
+    img.alt = "Edit character";
+    button.appendChild(img);
+  } else if (action === "add") {
+    button.onclick = async () => {
+      await addCharacterToList();
+      createFavoritesList();
+    };
+    button.textContent = "Add to favorites list";
+  }
+  return button;
+};
+
 const showElement = (id) => {
   const element = document.getElementById(id);
   element.classList.remove("hidden");
@@ -151,7 +198,7 @@ const createSpanElement = (character, id = character.id) => {
 
 const addCharacterToList = async () => {
   const character = getGeneratedCharacter();
-  const favorites = await getAll();
+  const favorites = await getAllCharacters();
   if (favorites.find((item) => item.id === character.id)) {
     alert("This character is already in the favorites list");
     return;
@@ -161,7 +208,7 @@ const addCharacterToList = async () => {
 
 const createFavoritesList = async () => {
   cleanElement("favorites-characters");
-  const favorites = await getAll();
+  const favorites = await getAllCharacters();
   const ul = document.getElementById("favorites-characters");
   const ret = favorites.map((character) => {
     const li = document.createElement("li");
@@ -189,36 +236,7 @@ const createFavoritesList = async () => {
   });
 
   if (ret.length === 0) showElement("empty-list");
-}
-
-const createButtonElement = (character, action) => {
-  const button = document.createElement("button");
-  button.type = "submit";
-  button.classList.add("button");
-  const img = document.createElement("img");
-
-  if (action === "delete") {
-    button.onclick = async () => {
-      await deleteCharacter(character._id);
-      createFavoritesList();
-    };
-    img.src = "assets/delete.png";
-    img.alt = "Delete character";
-    button.appendChild(img);
-  } else if (action === "update") {
-    button.onclick = () => openUpdateForm(character);
-    img.src = "assets/edit.png";
-    img.alt = "Edit character";
-    button.appendChild(img);
-  } else if (action === "add") {
-    button.onclick = async () => {
-      await addCharacterToList();
-      createFavoritesList();
-    }
-    button.textContent = "Add to favorites list";
-  }
-  return button;
-}
+};
 
 window.onload = () => {
   createFavoritesList();
