@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Yusei+Magic&display=swap');
+
+:root {
+  --color-brand-primary: #3e97db;
+  --color-brand-secondary: #9263d2;
+
+  --color-neutral-lightest: #efefef;
+  --color-neutral-dark: #242424;
+  --color-neutral-darkest: #181818;
+
+  --font-brand-principal: 'Montserrat', sans-serif;
+}
+
+html {
+  background-color: var(--color-neutral-dark);
+  color: var(--color-neutral-lightest);
+  font-family: var(--font-brand-principal);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  width: 100vw;
+
+  margin-bottom: 5vh;
+}
+
+.header h1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.header h1 img {
+  width: 50px;
+}
+
+.header h1 span {
+  background-color: var(--color-brand-primary);
+  background-image: linear-gradient(
+    45deg,
+    var(--color-brand-primary),
+    var(--color-brand-secondary)
+  );
+  background-size: 100%;
+
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+
+#game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 5vh;
+}
+
+#game #word {
+  font-size: 2rem;
+
+  display: flex;
+  gap: 0.5em;
+}
+
+#keyboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  max-width: 60vw;
+
+  margin-bottom: 3vh;
+}
+
+.key {
+  color: var(--color-brand-primary);
+  background-color: var(--color-neutral-dark);
+
+  padding: 20px;
+  border-radius: 10px;
+  border-width: 1px;
+  box-shadow: none;
+
+  font-size: 1rem;
+  text-transform: uppercase;
+  
+  cursor: pointer;
+}
+
+.key:hover {
+  box-shadow: 0 0 10px var(--color-brand-primary);
+}
+
+.key:disabled {
+  opacity: 50%;
+
+  box-shadow: none;
+
+  cursor: normal;
+}
+
+#chances {
+  margin-bottom: 2vh;
+}
+
+#chances span {
+  color: var(--color-brand-primary);
+
+  font-weight: 700;
+}
+
+#buttons {
+  display: flex;
+
+  margin-bottom: 2vh;
+}
+
+.action-btn {
+  background-image: linear-gradient(
+    to right,
+    var(--color-brand-primary) 0%,
+    var(--color-brand-secondary) 51%,
+    var(--color-brand-primary) 100%
+  );
+  color: var(--color-neutral-lightest);
+
+  margin: 10px;
+  padding: 15px 45px;
+
+  text-align: center;
+  font-family: var(--font-brand-principal);
+  font-weight: 500;
+
+  transition: 0.5s;
+
+  background-size: 200% auto;
+
+  box-shadow: 0 0 10px var(--color-neutral-lightest);
+  border-radius: 10px;
+  border: none;
+  
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  background-position: right center;
+
+  text-decoration: none;
+}
+
+form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+
+  width: 100%;
+}
+
+form input[type='text'] {
+  border: none;
+  border-radius: 10px;
+
+  padding: 10px 15px;
+}
+
+form button {
+  background-color: transparent;
+  color: var(--color-brand-primary);
+
+  border: solid 2px var(--color-brand-primary);
+  border-radius: 10px;
+
+  padding: 10px 15px;
+
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+
+  cursor: pointer;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+
+  <style>
+    .container {
+      display: flex;
+      justify-content: space-evenly;
+
+    }
+
+    .column {
+      background-color: violet;
+      border-radius: 10px;
+      min-height: 90vh;
+      padding-left: 20px;
+      padding-right: 20px;
+      width: 20%;
+    }
+
+    p {
+      text-align: center;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 5px;
+    }
+
+    .hide {
+      visibility: hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="column">
+      <p>TODO</p>
+      <button class="card" draggable="true">
+        Qualquer descrição 1
+      </button>
+
+      <div class="card" draggable="true">
+        Qualquer descrição 2
+      </div>
+      <div class="card" draggable="true">
+        Qualquer descrição 3
+      </div>
+      <div class="card" draggable="true">
+        Qualquer descrição 4
+      </div>
+
+    </div>
+    <div class="column">
+      <p>WIP</p>
+
+    </div>
+    <div class="column">
+      <p>DONE</p>
+
+    </div>
+  </div>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>

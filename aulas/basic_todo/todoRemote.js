@@ -1,4 +1,4 @@
-const baseUrl = "https://crudcrud.com/api/c301472bff9348148d032b05754b9c52";
+const baseUrl = "http://localhost:3000";
 
 function saveLocal(lista) {
   localStorage.setItem("@todo", JSON.stringify(lista));
@@ -66,7 +66,7 @@ async function onSubmit() {
   if (textoEl.value === "") return;
   if (lista.find((item) => item.text === text)) return;
   const item = { text: textoEl.value, done: false };
-
+  console.log("=== item", item);
   await saveRemote(item);
   const lista2 = await getAll();
   criaLista(lista2);
