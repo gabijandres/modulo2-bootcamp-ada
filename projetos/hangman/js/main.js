@@ -39,13 +39,13 @@ const cleanElement = (id) => {
   element.innerHTML = '';
 };
 
-const renderWord = async () => {
+const renderWord = async (theme) => {
   const gameState = getGameState();
   const wordDiv = document.getElementById('word');
   cleanElement('word');
 
   if (gameState === 'START') {
-    const word = await generateWord();
+    const word = await generateWord(theme);
     saveLocal([...word], 'answer');
     const guess = [...word].map((element) => {
       return element == ' ' ? ' ' : '_';
@@ -76,19 +76,22 @@ const renderMan = (chances) => {
 };
 
 /* GAME */
-const startGame = async () => {
+const startGame = async (theme) => {
+  const select = document.getElementById('themes');
+  console.log(select);
+  const th = theme || select.value;
   if (getGameState() !== 'PLAYING') saveChances(6);
   const chances = getChances();
   renderKeyboard();
   renderMan(chances);
   renderChances(chances);
-  await renderWord();
+  await renderWord(th);
 };
 
-const restartGame = () => {
+const restartGame = (theme) => {
   localStorage.clear();
   saveGameState('START');
-  startGame();
+  startGame(theme);
 };
 
 const finishGame = (message, answer) => {
@@ -158,10 +161,17 @@ const takeAGuess = () => {
   div.append(form);
 };
 
+const updateTheme = () => {
+  const select = document.getElementById('themes');
+  restartGame(select.value);
+}
+
 window.onload = async () => {
   const restart = document.getElementById('restart-button');
   const guess = document.getElementById('guess-button');
+  const select = document.getElementById('themes');
   restart.addEventListener('click', () => restartGame());
   guess.addEventListener('click', () => takeAGuess());
+  select.addEventListener('change', () => updateTheme());
   await startGame();
 };

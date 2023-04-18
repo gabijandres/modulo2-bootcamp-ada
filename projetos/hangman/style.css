@@ -64,6 +64,21 @@ body {
   -moz-text-fill-color: transparent;
 }
 
+.header #themes {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  background-color: transparent;
+  color: var(--color-neutral-lightest);
+
+  font-family: var(--font-brand-principal);
+  font-size: 1rem;
+
+  border-radius: 5px;
+  border: none;
+}
+
 #game {
   display: flex;
   flex-direction: column;
